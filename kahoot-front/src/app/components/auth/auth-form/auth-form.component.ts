@@ -24,17 +24,24 @@ export class AuthFormComponent implements OnInit {
 
   onSubmitLogin() {
     const credentials = { username: this.username, password: this.password };
-    const token = this.authenticationService.login(credentials);
-    console.log(token);
-    this.userService.getCurrentUser().subscribe((user: User) => {
-      const redirectionPath = '/';
-      this.router.navigate([redirectionPath]);
-
-      if (!token) {
+    this.authenticationService.login(credentials).subscribe(
+      (token: any) => {
+        console.log(token);
+        if (!token) {
+          const error = new Error('bad credentials');
+          this.errors.push(error.message);
+          this.router.navigate(['/login']);
+        }
+        this.userService.getCurrentUser().subscribe((user: User) => {
+          const redirectionPath = '/';
+          this.router.navigate([redirectionPath]);
+        });
+      },
+      () => {
         const error = new Error('bad credentials');
         this.errors.push(error.message);
         this.router.navigate(['/login']);
       }
-    });
+    );
   }
 }
