@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const User = require('./user.model');
+const Question = require('./question.model');
 
 const schema = new mongoose.Schema({
   title: String,
@@ -8,20 +10,20 @@ const schema = new mongoose.Schema({
   },
   owner: User,
   created_at: String,
-  questions: Array,
+  questions: [Question],
 });
-const User = mongoose.model('users', schema);
+const Quizz = mongoose.model('quizz', schema);
 
 const findOneBy = (condition) => {
-  return User.findOne(condition);
+  return Quizz.findOne(condition);
 };
 
 const findAll = () => {
-  return User.find().exec();
+  return v.find().exec();
 };
 
 module.exports = {
-  User,
+  Quizz,
   findOneBy,
   findAll,
 };

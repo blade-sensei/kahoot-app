@@ -1,0 +1,12 @@
+<div>
+  <div class="alert alert-danger" *ngIf="errors.length > 0">
+    Connexion failed
+  </div>
+  <div>
+    <label for="username">username</label>
+    <input type="text" id="username" [(ngModel)]="username"> <BR>
+    <label for="password">password</label>
+    <input type="password" id="password" [(ngModel)]="password"> <BR>
+    <input type="button" value="validate" (click)="onSubmitLogin()">
+  </div>
+</div>

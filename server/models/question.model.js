@@ -2,23 +2,20 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
   title: String,
-  score: String,
-  name: String,
-  password: String,
-  admin: Boolean,
+  answer: [String],
 });
-const User = mongoose.model('users', schema);
+const Question = mongoose.model('question', schema);
 
 const findOneBy = (condition) => {
-  return User.findOne(condition);
+  return Question.findOne(condition);
 };
 
 const findAll = () => {
-  return User.find().exec();
+  return Question.find().exec();
 };
 
 module.exports = {
-  User,
+  Question,
   findOneBy,
   findAll,
 };

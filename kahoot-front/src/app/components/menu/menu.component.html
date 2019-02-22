@@ -1,0 +1,33 @@
+<div class="nav-bar-container mb-5">
+<nav class="navbar navbar-expand-sm navbar-default justify-content-between">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="btn btn-primary btn-sm" href="/user/juan"> projects </a>
+    </li>
+  </ul>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+    </li>
+  </ul>
+        <a class="menu-title-link menu-title-font navbar-brand" [routerLink]="['/']">
+          <h2>Road to ninja</h2>
+        </a>
+  <ul class="navbar-nav menu-right-side">
+    <li class="nav-item">
+     <!-- <app-button-project-add *ngIf="isUserLoggedIn()"></app-button-project-add> -->
+    </li>
+    <li class="nav-item">
+      <div class="nav-link" *ngIf="isUserLoggedIn()">
+        <button type="button" class="btn btn-primary btn-sm navbar-btn"
+                (click)="onLogout()"> logout
+        </button>
+      </div>
+      <div class="nav-link" *ngIf="!isUserLoggedIn()">
+        <button type="button" class="btn btn-primary btn-sm navbar-btn"
+                (click)="onRedirectToLogin()"> Login
+        </button>
+      </div>
+    </li>
+  </ul>
+</nav>
+</div>

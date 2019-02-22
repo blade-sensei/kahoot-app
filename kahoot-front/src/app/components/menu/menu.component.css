@@ -1,0 +1,37 @@
+.menu-title-rtn {
+  margin-left: 10em;
+}
+
+.menu-right-side {
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+.menu-title-link {
+  cursor: pointer;
+  color: #AF1944;
+}
+
+.navbar {
+  height: 50px;
+}
+
+.navbar-brand {
+  padding: 0 15px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 auto;
+}
+
+.menu-title-link:hover {
+  color: #FF195B;
+}
+
+.header-title-center {
+  margin: 0 auto;
+}
+
+.center-title {
+  margin-left: 40%;
+}
+
