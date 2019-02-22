@@ -1,17 +1,24 @@
 {
   "name": "kahoot-app",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js --verbose",
+    "lint": "./node_modules/.bin/eslint  . --ext .js  --ignore-pattern node_modules/ || exit 0",
+    "lint:fix": "./node_modules/.bin/eslint --fix . --ext .js  --ignore-pattern node_modules/  || exit 0"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "mongoose": "^5.4.9",
     "jsonwebtoken": "^8.2.0",
-    "eslint-config-core": "^1.2.0"
+    "eslint-config-core": "^1.2.0",
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

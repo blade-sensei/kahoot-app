@@ -2,14 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const swaggerDocument = require('./swagger.json');
 const api = require('./routes/api');
-const index = require('./routes/index');
 const seed = require('./routes/seed');
+const index = require('./routes/index');
 const config = require('./config');
 const cors = require('./middlewares/cors');
 const logger = require('./utils/logger');
-const Logger = require('./utils/logger.lab');
 
 const app = express();
 app.set('secret_key', config.auth.key);
@@ -34,7 +32,6 @@ app.use(cors.enablePreFlightRequest);
 
 // adding routes modules
 app.use('/', index);
-app.use('/explorer', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api', api);
 app.use('/seed', seed);
 app.use((req, res) => {
@@ -53,11 +50,6 @@ mongoose
     mongoose.set('debug', true);
     // const log = new Logger({ level: 2, message: ''});
     // console.log(log);
-    const log = new Logger();
-    log.debug('hello');
-    log.error('test');
-    log.info('test');
-    log.warn('warr');
     return logger.info(`database connection on ${mongoose.connection.port} port with success!`);
   })
   .catch((error) => {

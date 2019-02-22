@@ -29,11 +29,12 @@ const dropCollection = (model) => {
 
 router.get('/users', async (req, res) => {
   try {
-    await dropCollection(userModel);
-    const createdUsers = await createCollection(userModel, userData);
+    await dropCollection(userModel.User);
+    const createdUsers = await createCollection(userModel.User, userData);
     res.send(createdUsers);
   } catch (e) {
-    throw new Error('fail to seed users');
+    console.log(e);
+    res.send('fail to seed users');
   }
 });
 
