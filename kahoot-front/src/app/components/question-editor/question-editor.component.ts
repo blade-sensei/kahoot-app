@@ -11,10 +11,8 @@ export class QuestionEditorComponent implements OnInit {
   quizz: any = {};
 
   headTable = ['title', 'answers', 'correct answser', 'actions'];
-  correctAnswers = [false, false, false, false];
-  questionToAdd = {
-    answers: [{}, {}, {}, {}]
-  } ;
+  correctAnswers = [true, false, false, false];
+  questionToAdd = {} ;
   constructor() { }
 
   ngOnInit() {
@@ -29,6 +27,11 @@ export class QuestionEditorComponent implements OnInit {
       return question.answers.join();
     }
     return '';
+  }
+
+  onAddQuestion() {
+    this.quizz.questions.push(this.questionToAdd);
+    this.questionToAdd = new Question([]);
   }
 
 }

@@ -3,7 +3,7 @@
 <label for="description-id"> description : </label>
 <textarea name="description" id="description-id" cols="13" rows="2"  [(ngModel)]="quizz.description"></textarea> <BR>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" (click)="onValidate()"> Valider </button>
+  <button type="button" class="btn btn-primary" (click)="onValidate()"> Valider et ajouter des questions </button>
 </div>
 
 <app-question-editor [quizz]="quizz" *ngIf="quizzValidated"></app-question-editor>

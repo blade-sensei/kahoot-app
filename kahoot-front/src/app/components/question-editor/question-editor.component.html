@@ -6,7 +6,7 @@
 
   <!-- list questions section  -->
 
-  <table *ngIf="quizz.questions.length > 0" mdbTable>
+  <table class="table table-dark" *ngIf="quizz.questions.length > 0" mdbTable>
     <thead>
     <tr>
       <th *ngFor="let head of headTable" scope="col">{{head}} </th>
@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     <tr mdbTableCol *ngFor="let question of quizz.questions">
-      <th scope="row">{{ question.title }}</th>
+      <th>{{ question.title }}</th>
       <td>{{ getAnswers(question) }}</td>
       <td> </td>
       <td> <button (click)="question" > Delete </button> </td>
@@ -25,15 +25,27 @@
   <div *ngIf="quizz.questions.length <= 0">
     No questions
   </div>
-  {{ questionToAdd.answers[0] }}
   <!-- add question section  -->
-  <div>
-    <input type="text" [(ngModel)]="questionToAdd.answers[0]"> <BR>
-    <input type="text" [(ngModel)]="questionToAdd.answers[1]"> <BR>
-    <input type="text" [(ngModel)]="questionToAdd.answers[2]"> <BR>
-    <input type="text" [(ngModel)]="questionToAdd.answers[4]"> <BR>
-  
+  <label for=""> question title </label>
+  <input id="name-id" [(ngModel)]="questionToAdd.title" type="text"> <BR>
+  <label for="">answers: </label> <BR>
+  <div class="row">
+    <input type="text" [(ngModel)]="questionToAdd.answers[0]">
+    <input [(ngModel)]="correctAnswers[0]" type="checkbox" class="">
+    <BR>
+    <input type="text" [(ngModel)]="questionToAdd.answers[1]">
+    <input [(ngModel)]="correctAnswers[1]" type="checkbox" class="">
+    <BR>
+    <input type="text" [(ngModel)]="questionToAdd.answers[2]">
+    <input [(ngModel)]="correctAnswers[2]" type="checkbox" class="">
+    <BR>
+    <input type="text" [(ngModel)]="questionToAdd.answers[4]">
+    <input [(ngModel)]="correctAnswers[3]" type="checkbox" class="">
+    <BR>
+    <button (click)="onAddQuestion()"> ajouter question </button>
   </div>
-
-
 </div>
+<div class="row">
+  <button class="btn btn-primary" (click)="validateQuizz()"> validate all quizz </button>
+</div>
+
