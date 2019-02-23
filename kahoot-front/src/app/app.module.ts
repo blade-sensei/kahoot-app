@@ -18,6 +18,7 @@ import { ButtonQuizzAddComponent } from './components/button-quizz-add/button-qu
 import { QuizzCreateComponent } from './components/quizz-create/quizz-create.component';
 import { AnswerEditorComponent } from './components/answer-editor/answer-editor.component';
 import { QuestionEditorComponent } from './components/question-editor/question-editor.component';
+import { GameScreenAdminComponent } from './components/game-screen-admin/game-screen-admin.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { QuestionEditorComponent } from './components/question-editor/question-e
     QuizzCreateComponent,
     AnswerEditorComponent,
     QuestionEditorComponent,
+    GameScreenAdminComponent,
   ],
   imports: [
     HttpClientModule,
