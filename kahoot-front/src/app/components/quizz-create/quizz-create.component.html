@@ -1,0 +1,9 @@
+<label for="name-id"> title * : </label>
+<input id="name-id" [(ngModel)]="quizz.title" type="text"> <BR>
+<label for="description-id"> description : </label>
+<textarea name="description" id="description-id" cols="13" rows="2"  [(ngModel)]="quizz.description"></textarea> <BR>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="onValidate()"> Valider </button>
+</div>
+
+<app-question-editor [quizz]="quizz" *ngIf="quizzValidated"></app-question-editor>

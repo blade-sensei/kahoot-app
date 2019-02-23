@@ -9,7 +9,6 @@ const schema = new mongoose.Schema({
     default: '',
   },
   owner: User,
-  created_at: String,
   questions: [Question],
 });
 const Quizz = mongoose.model('quizz', schema);

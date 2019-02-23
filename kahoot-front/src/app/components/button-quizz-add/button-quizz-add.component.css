@@ -1,0 +1,9 @@
+.icon-plus-square {
+  cursor: pointer;
+  color: #af1944;
+}
+
+.icon-plus-square:hover {
+  color: #a3153d;
+  border-color: #a3153d;
+}

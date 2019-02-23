@@ -13,6 +13,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProfileService} from "./services/profile/profile.service";
 import {AuthInterceptorService} from "./services/authentication/auth-interceptor.service";
+import { QuizzAdminComponent } from './components/quizz-admin/quizz-admin.component';
+import { ButtonQuizzAddComponent } from './components/button-quizz-add/button-quizz-add.component';
+import { QuizzCreateComponent } from './components/quizz-create/quizz-create.component';
+import { AnswerEditorComponent } from './components/answer-editor/answer-editor.component';
+import { QuestionEditorComponent } from './components/question-editor/question-editor.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +25,11 @@ import {AuthInterceptorService} from "./services/authentication/auth-interceptor
     AuthFormComponent,
     MenuComponent,
     HomeComponent,
+    QuizzAdminComponent,
+    ButtonQuizzAddComponent,
+    QuizzCreateComponent,
+    AnswerEditorComponent,
+    QuestionEditorComponent,
   ],
   imports: [
     HttpClientModule,

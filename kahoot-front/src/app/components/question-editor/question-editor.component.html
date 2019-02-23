@@ -1,0 +1,39 @@
+<div>
+  <p>
+  Quizz title: {{ quizz.title }} <BR>
+  Description: {{ quizz.description }}
+  </p>
+
+  <!-- list questions section  -->
+
+  <table *ngIf="quizz.questions.length > 0" mdbTable>
+    <thead>
+    <tr>
+      <th *ngFor="let head of headTable" scope="col">{{head}} </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr mdbTableCol *ngFor="let question of quizz.questions">
+      <th scope="row">{{ question.title }}</th>
+      <td>{{ getAnswers(question) }}</td>
+      <td> </td>
+      <td> <button (click)="question" > Delete </button> </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="quizz.questions.length <= 0">
+    No questions
+  </div>
+  {{ questionToAdd.answers[0] }}
+  <!-- add question section  -->
+  <div>
+    <input type="text" [(ngModel)]="questionToAdd.answers[0]"> <BR>
+    <input type="text" [(ngModel)]="questionToAdd.answers[1]"> <BR>
+    <input type="text" [(ngModel)]="questionToAdd.answers[2]"> <BR>
+    <input type="text" [(ngModel)]="questionToAdd.answers[4]"> <BR>
+  
+  </div>
+
+
+</div>

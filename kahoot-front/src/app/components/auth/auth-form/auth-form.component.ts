@@ -33,7 +33,7 @@ export class AuthFormComponent implements OnInit {
           this.router.navigate(['/login']);
         }
         this.userService.getCurrentUser().subscribe((user: User) => {
-          const redirectionPath = '/';
+          const redirectionPath = '/quizz/admin';
           this.router.navigate([redirectionPath]);
         });
       },
