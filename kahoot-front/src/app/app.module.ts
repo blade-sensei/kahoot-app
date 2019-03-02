@@ -17,7 +17,6 @@ import { QuizzAdminComponent } from './components/quizz-admin/quizz-admin.compon
 import { ButtonQuizzAddComponent } from './components/button-quizz-add/button-quizz-add.component';
 import { QuizzCreateComponent } from './components/quizz-create/quizz-create.component';
 import { AnswerEditorComponent } from './components/answer-editor/answer-editor.component';
-import { QuestionEditorComponent } from './components/question-editor/question-editor.component';
 import { GameScreenAdminComponent } from './components/game-screen-admin/game-screen-admin.component';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { GameScreenAdminComponent } from './components/game-screen-admin/game-sc
     ButtonQuizzAddComponent,
     QuizzCreateComponent,
     AnswerEditorComponent,
-    QuestionEditorComponent,
     GameScreenAdminComponent,
   ],
   imports: [

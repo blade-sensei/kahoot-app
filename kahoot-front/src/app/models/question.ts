@@ -4,9 +4,18 @@ import {Answser} from "./answser";
 export class Question {
   title: string;
   answers: Answser[];
+  correctAnswers = [];
 
-  constructor(answers) {
+  constructor() {
     this.title = '';
-    this.answers = answers;
+    this.answers = [];
+
+    this.addDefaultQuestions(4);
+  }
+
+  addDefaultQuestions(numberOfQuestions) {
+    for (let i = 0; i <= (numberOfQuestions-1); i++) {
+      this.answers.push(new Answser());
+    }
   }
 }
