@@ -13,4 +13,8 @@ export class QuizzService {
   getUserQuizz(id): Observable<any> {
     return this.http.get<any>(`http://localhost:3000/api/users/${id}/quizz`);
   }
+
+  deleteQuizz(id): Observable<any> {
+    return this.http.delete<any>(`http://localhost:3000/api/users/quizz/${id}`);
+  }
 }

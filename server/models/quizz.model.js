@@ -28,9 +28,14 @@ const add = (quizz) => {
   return new Quizz(quizz).save();
 };
 
+const remove = (id) => {
+  return Quizz.deleteOne({ _id: id });
+};
+
 module.exports = {
   Quizz,
   findOneBy,
   findAll,
   add,
+  remove,
 };

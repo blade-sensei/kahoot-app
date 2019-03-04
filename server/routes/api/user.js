@@ -70,4 +70,18 @@ router.get(
   },
 );
 
+router.delete(
+  '/quizz/:id',
+  async (req, res) => {
+    try {
+      const deleteResponse = await quizzService.remove(req.params.id);
+      console.log(deleteResponse);
+      return res.send(deleteResponse);
+    } catch (e) {
+      console.log(e);
+      return res.status(500).send({ error: 'Internal error' });
+    }
+  },
+);
+
 module.exports = router;

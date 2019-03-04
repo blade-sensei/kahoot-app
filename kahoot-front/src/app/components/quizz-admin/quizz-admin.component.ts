@@ -22,4 +22,14 @@ export class QuizzAdminComponent implements OnInit {
     });
   }
 
+  onDeleteQuizz(quizzToDelete) {
+    console.log(quizzToDelete._id);
+    this.quizzService.deleteQuizz(quizzToDelete._id).subscribe(res => {
+      if (res.n >= 1) {
+        this.userQuizz = this.userQuizz
+          .filter(quizz => !(quizz._id === quizzToDelete._id));
+      }
+    });
+  }
+
 }

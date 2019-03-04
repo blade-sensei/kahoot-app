@@ -12,8 +12,13 @@ const findAllByUserId = (uid) => {
   return quizzModel.findAll({ owner: uid });
 };
 
+const remove = (id) => {
+  return quizzModel.remove(id);
+}
+
 module.exports = {
   findAll,
   add,
   findAllByUserId,
+  remove,
 };

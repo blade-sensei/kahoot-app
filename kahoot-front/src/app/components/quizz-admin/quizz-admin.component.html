@@ -9,7 +9,7 @@
     <th>{{ quizz.title }}</th>
     <td>{{ quizz.description }}</td>
     <td>
-      <button> delete </button>
+      <button (click)="onDeleteQuizz(quizz)"> delete </button>
       <button> edit </button>
       <button> download </button>
       <button class="btn btn-success"> play </button>
