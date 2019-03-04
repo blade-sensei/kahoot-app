@@ -17,6 +17,13 @@ const findOneBy = (condition) => {
   return Quizz.findOne(condition);
 };
 
+const findAll = (condition = {}) => {
+  if (condition) {
+    return Quizz.find(condition).exec();
+  }
+  return Quizz.find().exec();
+};
+
 const add = (quizz) => {
   return new Quizz(quizz).save();
 };
@@ -24,5 +31,6 @@ const add = (quizz) => {
 module.exports = {
   Quizz,
   findOneBy,
+  findAll,
   add,
 };

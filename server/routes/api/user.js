@@ -55,4 +55,19 @@ router.post(
   },
 );
 
+
+router.get(
+  '/:uid/quizz',
+  async (req, res) => {
+    try {
+      const quizzs = await quizzService.findAllByUserId(req.params.uid);
+      console.log(quizzs);
+      return res.send(quizzs);
+    } catch (e) {
+      console.log(e);
+      return res.status(500).send({ error: 'Internal error' });
+    }
+  },
+);
+
 module.exports = router;

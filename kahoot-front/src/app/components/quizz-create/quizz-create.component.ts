@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Question} from "../../models/question";
 import {QuizzService} from "../../services/project/quizz.service";
 import {ProfileService} from "../../services/profile/profile.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-quizz-create',
@@ -25,7 +26,10 @@ export class QuizzCreateComponent implements OnInit {
   quizzFormError = [];
 
 
-  constructor(private quizzService: QuizzService) {
+  constructor(
+    private quizzService: QuizzService,
+    private router: Router
+  ) {
     this.initCorrectAnswers();
   }
 
@@ -38,9 +42,12 @@ export class QuizzCreateComponent implements OnInit {
       return;
     }
     const user = ProfileService.getCurrentUserToken();
-    console.log(user);
     this.quizzService.addUserQuizz(user.uid, this.quizz)
-      .subscribe(quizz => console.log(quizz));
+      .subscribe(quizz => {
+        console.log(quizz)
+        const redirectionPath = '/quizz/admin';
+        this.router.navigate([redirectionPath]);
+      });
 
   }
 

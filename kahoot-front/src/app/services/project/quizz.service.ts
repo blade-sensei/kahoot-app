@@ -9,4 +9,8 @@ export class QuizzService {
   addUserQuizz(id, quizz): Observable<any> {
     return this.http.post<any>(`http://localhost:3000/api/users/${id}/quizz`, quizz);
   }
+
+  getUserQuizz(id): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/api/users/${id}/quizz`);
+  }
 }
