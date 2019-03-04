@@ -18,6 +18,7 @@ import { ButtonQuizzAddComponent } from './components/button-quizz-add/button-qu
 import { QuizzCreateComponent } from './components/quizz-create/quizz-create.component';
 import { AnswerEditorComponent } from './components/answer-editor/answer-editor.component';
 import { GameScreenAdminComponent } from './components/game-screen-admin/game-screen-admin.component';
+import {QuizzService} from "./services/project/quizz.service";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { GameScreenAdminComponent } from './components/game-screen-admin/game-sc
     UserService,
     AuthenticationService,
     ProfileService,
+    QuizzService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

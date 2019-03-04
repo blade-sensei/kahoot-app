@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Question} from "../../models/question";
+import {QuizzService} from "../../services/project/quizz.service";
+import {ProfileService} from "../../services/profile/profile.service";
 
 @Component({
   selector: 'app-quizz-create',
@@ -13,7 +15,6 @@ export class QuizzCreateComponent implements OnInit {
     title: '',
     owner: {}
   };
-  quizzValidated = false;
   correctAnswers = [];
 
   // question section
@@ -21,18 +22,26 @@ export class QuizzCreateComponent implements OnInit {
   headTable = ['title', 'answers', 'good answers', 'time', 'actions'];
 
   answerFormError = [];
+  quizzFormError = [];
 
 
-  constructor() {
+  constructor(private quizzService: QuizzService) {
     this.initCorrectAnswers();
   }
 
   ngOnInit() {
   }
 
-  onValidate() {
-    this.quizzValidated = true;
-    console.log('validate quizz');
+  onValidateQuizz() {
+    if (!this.quizz.title || !this.quizz.description) {
+      this.quizzFormError.push('Add a title or description');
+      return;
+    }
+    const user = ProfileService.getCurrentUserToken();
+    console.log(user);
+    this.quizzService.addUserQuizz(user.uid, this.quizz)
+      .subscribe(quizz => console.log(quizz));
+
   }
 
   public getAnswers(question) {
@@ -51,6 +60,9 @@ export class QuizzCreateComponent implements OnInit {
     this.answerFormError = [];
     if (!this.question.title) {
       this.answerFormError.push('require title');
+    }
+    if (!this.question.time) {
+      this.answerFormError.push('require time');
     }
 
     if (this.getInsertedAnswers().length < 2) {
@@ -94,5 +106,10 @@ export class QuizzCreateComponent implements OnInit {
         return answer;
       }
     })
+  }
+
+  deleteQuestion(questionToDelete) {
+   this.quizz.questions = this.quizz.questions
+     .filter(question => !(questionToDelete.title === question.title));
   }
 }

@@ -5,6 +5,7 @@ export class Question {
   title: string;
   answers: Answser[];
   correctAnswers = [];
+  time: 0;
 
   constructor() {
     this.title = '';

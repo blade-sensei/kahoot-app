@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./user.model');
-const Question = require('./question.model');
+const questionModel  = require('./question.model');
 
 const schema = new mongoose.Schema({
   title: String,
@@ -8,21 +8,21 @@ const schema = new mongoose.Schema({
     type: String,
     default: '',
   },
-  owner: User,
-  questions: [Question],
+  owner: String,
+  questions: [],
 });
-const Quizz = mongoose.model('quizz', schema);
+const Quizz = mongoose.model('Quizz', schema);
 
 const findOneBy = (condition) => {
   return Quizz.findOne(condition);
 };
 
-const findAll = () => {
-  return v.find().exec();
+const add = (quizz) => {
+  return new Quizz(quizz).save();
 };
 
 module.exports = {
   Quizz,
   findOneBy,
-  findAll,
+  add,
 };

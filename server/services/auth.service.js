@@ -14,6 +14,7 @@ const login = async ({ username, password }) => {
     username: user.username,
     logged: true,
     token,
+    uid: user.id,
   };
 };
 
