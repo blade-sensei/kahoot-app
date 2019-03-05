@@ -16,9 +16,14 @@ const remove = (id) => {
   return quizzModel.remove(id);
 }
 
+const update = (id, quizz) => {
+  return quizzModel.update({ _id: id }, quizz, { new: true });
+};
+
 module.exports = {
   findAll,
   add,
   findAllByUserId,
   remove,
+  update,
 };

@@ -10,7 +10,7 @@
     <td>{{ quizz.description }}</td>
     <td>
       <button (click)="onDeleteQuizz(quizz)"> delete </button>
-      <button> edit </button>
+      <button (click)="onRedirectToEdit(quizz)"> edit </button>
       <button> download </button>
       <button class="btn btn-success"> play </button>
     </td>

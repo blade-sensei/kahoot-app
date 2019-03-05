@@ -32,10 +32,19 @@ const remove = (id) => {
   return Quizz.deleteOne({ _id: id });
 };
 
+const update = (condition, instance, options) => {
+  return Quizz.findOneAndUpdate(
+    condition,
+    instance,
+    options,
+  );
+};
+
 module.exports = {
   Quizz,
   findOneBy,
   findAll,
   add,
   remove,
+  update,
 };

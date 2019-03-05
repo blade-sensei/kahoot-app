@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {QuizzService} from "../../services/project/quizz.service";
 import {ProfileService} from "../../services/profile/profile.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-quizz-admin',
@@ -12,6 +13,7 @@ export class QuizzAdminComponent implements OnInit {
   headTable = ['title quizz', 'description', 'actions'];
   constructor(
     private quizzService: QuizzService,
+    private router: Router
 
   ) { }
 
@@ -30,6 +32,10 @@ export class QuizzAdminComponent implements OnInit {
           .filter(quizz => !(quizz._id === quizzToDelete._id));
       }
     });
+  }
+
+  onRedirectToEdit(quizzToEdit) {
+    this.router.navigate(['/quizz/edit', quizzToEdit._id]);
   }
 
 }

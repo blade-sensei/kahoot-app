@@ -84,4 +84,19 @@ router.delete(
   },
 );
 
+router.put(
+  '/quizz/:id',
+  async (req, res) => {
+    console.log(req.params.id);
+    const id = req.params.id;
+    try {
+      const quizz = await quizzService.update(id, req.body);
+      return res.send(quizz);
+    } catch (e) {
+      console.log(e);
+      return res.status(500).send({ error: 'Internal error' });
+    }
+  },
+);
+
 module.exports = router;

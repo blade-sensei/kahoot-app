@@ -17,4 +17,9 @@ export class QuizzService {
   deleteQuizz(id): Observable<any> {
     return this.http.delete<any>(`http://localhost:3000/api/users/quizz/${id}`);
   }
+
+  updateQuizz(quizzId, quizz): Observable<any> {
+    return this.http.put<any>(`http://localhost:3000/api/users/quizz/${quizzId}`, quizz);
+  }
+
 }
