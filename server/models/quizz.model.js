@@ -40,6 +40,10 @@ const update = (condition, instance, options) => {
   );
 };
 
+const findById = (id) => {
+  return Quizz.findById(id);
+};
+
 module.exports = {
   Quizz,
   findOneBy,
@@ -47,4 +51,5 @@ module.exports = {
   add,
   remove,
   update,
+  findById,
 };

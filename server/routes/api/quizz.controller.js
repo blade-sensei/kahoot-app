@@ -1,9 +1,7 @@
 const express = require('express');
-const token = require('../../middlewares/token');
-const projectService = require('../../services/project.service');
+const quizzService = require('../../services/quizz.service');
 const userService = require('../../services/user.service');
 const logger = require('../../utils/logger');
-const requestMiddleware = require('../../middlewares/request');
 
 const router = express.Router();
 
@@ -17,18 +15,18 @@ router.get('', async (req, res) => {
   }
 });
 
-router.post(
-  '/:uid/projects',
-  requestMiddleware.hasRequiredParametersProject,
-  async (req, res) => {
-    req.body.uid = req.params.uid;
-    try {
-      const project = await projectService.add(req.body);
-      return res.send(project);
-    } catch (e) {
-      return res.status(500).send({ error: 'Internal error' });
+router.get('/:id', async (req, res) => {
+  try {
+    const quizz = await quizzService.findById(req.params.id);
+    if (quizz) {
+      res.status(200);
+      return res.send(quizz);
     }
-  },
-);
+    return res.status(404).send({ error: 'not found' });
+  } catch (e) {
+    logger.info(e.message);
+    return res.status(500).send({ error: 'Internal error' });
+  }
+});
 
 module.exports = router;

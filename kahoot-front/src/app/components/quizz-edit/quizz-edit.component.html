@@ -1,3 +1,44 @@
-<p>
-  quizz-edit works!
-</p>
+<div *ngIf="editingQuizz">
+  <label for="name-id"> title * : </label>
+  <input id="name-id" [(ngModel)]="editingQuizz.title" type="text"> <BR>
+  <label for="description-id"> description : </label>
+  <textarea name="description" id="description-id" cols="13" rows="2"  [(ngModel)]="editingQuizz.description"></textarea> <BR>
+  <div class="modal-footer">
+  </div>
+
+
+  <!-- editor question -->
+
+  <div>
+
+    <!-- list questions section  -->
+    <table class="table table-dark" *ngIf="editingQuizz.questions.length > 0" mdbTable>
+      <thead>
+      <tr>
+        <th *ngFor="let head of headTable" scope="col">{{head}} </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr mdbTableCol *ngFor="let question of editingQuizz.questions">
+        <th>{{ question.title }}</th>
+        <td>{{ getAnswers(question) }}</td>
+        <td>{{ getGoodAnswers(question) }}</td>
+        <td>{{ question.time }}</td>
+        <td> <button (click)="deleteQuestion(question)" > Delete </button> </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="editingQuizz.questions.length <= 0">
+      This quizz has no questions yet
+    </div>
+
+  <div class="modal-footer">
+  </div>
+
+  <div class="row">
+    <button class="btn btn-danger"> cancel </button>
+    <button class="btn btn-primary" (click)="onValidateQuizz()"> validate quizz </button>
+  </div>
+</div>
+

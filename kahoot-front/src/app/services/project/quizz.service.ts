@@ -22,4 +22,9 @@ export class QuizzService {
     return this.http.put<any>(`http://localhost:3000/api/users/quizz/${quizzId}`, quizz);
   }
 
+  getQuizz(id): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/api/quizz/${id}`);
+
+  }
+
 }

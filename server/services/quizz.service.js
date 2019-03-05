@@ -20,10 +20,15 @@ const update = (id, quizz) => {
   return quizzModel.update({ _id: id }, quizz, { new: true });
 };
 
+const findById = (id) => {
+  return quizzModel.findById(id);
+};
+
 module.exports = {
   findAll,
   add,
   findAllByUserId,
   remove,
   update,
+  findById,
 };
