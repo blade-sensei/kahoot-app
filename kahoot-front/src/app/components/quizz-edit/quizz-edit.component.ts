@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {QuizzService} from "../../services/project/quizz.service";
+import {Subscription} from "rxjs";
+import {HookManagerService} from "../../services/hook-manager.service";
 
 @Component({
   selector: 'app-quizz-edit',
@@ -17,18 +19,23 @@ export class QuizzEditComponent implements OnInit {
   answerFormError = [];
   quizzFormError = [];
 
+  questionToEdit: any;
   isQuestionOnEdition = false;
+  indexQuestionEdit;
+
+  questionSubscription: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private quizzService: QuizzService,
+    private hook: HookManagerService,
   ) { }
 
   ngOnInit() {
+    this.subscribeForQuestionEdited();
     this.quizzId = this.route.snapshot.paramMap.get('id');
     this.quizzService.getQuizz(this.quizzId).subscribe(quizz => {
-      console.log(quizz);
       this.editingQuizz = quizz;
-      console.log(this.editingQuizz);
     })
   }
 
@@ -42,6 +49,21 @@ export class QuizzEditComponent implements OnInit {
 
   public getGoodAnswers(question) {
     return question.correctAnswers.join();
+  }
+
+  editQuestion(questionToEdit) {
+    this.indexQuestionEdit = this.editingQuizz.questions
+      .indexOf(questionToEdit);
+    this.hook.setQuestionToEdit(questionToEdit);
+  }
+
+  subscribeForQuestionEdited() {
+    this.questionSubscription = this.hook
+      .getQuestionEdited()
+      .subscribe(question => {
+        console.log(question);
+        this.editingQuizz.questions[this.indexQuestionEdit] = JSON.parse(JSON.stringify(question));
+      });
   }
 
 }

@@ -1,3 +1,10 @@
+<div *ngIf="questionToEdit">
 <p>
-  question-edit works!
+  {{ questionToEdit.title }}
 </p>
+<div>
+  <input id="question-title-id" [(ngModel)]="questionToEdit.title" type="text" placeholder="question title ...">
+</div>
+<button (click)="onSaveEdition()">save</button>
+
+</div>

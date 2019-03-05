@@ -25,7 +25,6 @@ export class QuizzCreateComponent implements OnInit {
   answerFormError = [];
   quizzFormError = [];
 
-
   constructor(
     private quizzService: QuizzService,
     private router: Router

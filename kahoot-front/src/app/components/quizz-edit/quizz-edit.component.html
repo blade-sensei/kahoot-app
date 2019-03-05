@@ -24,7 +24,10 @@
         <td>{{ getAnswers(question) }}</td>
         <td>{{ getGoodAnswers(question) }}</td>
         <td>{{ question.time }}</td>
-        <td> <button (click)="deleteQuestion(question)" > Delete </button> </td>
+        <td>
+          <button (click)="deleteQuestion(question)" > Delete </button>
+          <button (click)="editQuestion(question)" > edit </button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -36,6 +39,8 @@
   <div class="modal-footer">
   </div>
 
+    <!-- edition question -->
+    <app-question-edit> </app-question-edit>
   <div class="row">
     <button class="btn btn-danger"> cancel </button>
     <button class="btn btn-primary" (click)="onValidateQuizz()"> validate quizz </button>
