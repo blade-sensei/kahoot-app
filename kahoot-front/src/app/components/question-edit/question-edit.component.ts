@@ -10,7 +10,9 @@ import {Subscription} from "rxjs";
 export class QuestionEditComponent implements OnInit, OnChanges {
 
   question: any;
-  questionToEdit;
+  questionToEdit
+
+  answerFormError = [];
 
   questionSubscription: Subscription;
   constructor(
@@ -38,6 +40,21 @@ export class QuestionEditComponent implements OnInit, OnChanges {
         this.questionToEdit = JSON.parse(JSON.stringify(question));
       });
   }
+
+  isSelectionAnswerDisabled(answer) {
+    return answer.title;
+  }
+
+  getSelectedAnswers(question) {
+    const answers = [];
+    question.correctAnswers.forEach((checkedAnswser, index) => {
+      if (checkedAnswser) {
+        answers.push(this.question.answers[index].title);
+      }
+    });
+    return answers;
+  }
+
 
 
 }

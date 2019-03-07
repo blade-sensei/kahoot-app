@@ -41,14 +41,27 @@ export class QuizzEditComponent implements OnInit {
 
   public getAnswers(question) {
     if (Reflect.has(question, 'answers')) {
-      const answersTitle = question.answers.map(answer => answer.title);
+      const answers = question.answers.filter(answer => answer.title);
+      console.log(answers);
+      const answersTitle = answers.map(answer => answer.title);
       return answersTitle.join();
     }
     return '';
   }
 
   public getGoodAnswers(question) {
-    return question.correctAnswers.join();
+    const correctAnswers = this.getSelectedAnswers(question);
+    return correctAnswers.join();
+  }
+
+  getSelectedAnswers(question) {
+    const answers = [];
+    question.correctAnswers.forEach((checkedAnswser, index) => {
+      if (checkedAnswser) {
+        answers.push(question.answers[index].title);
+      }
+    });
+    return answers;
   }
 
   editQuestion(questionToEdit) {

@@ -51,7 +51,6 @@ export class QuizzCreateComponent implements OnInit {
   public getAnswers(question) {
     if (Reflect.has(question, 'answers')) {
       const answers = question.answers.filter(answer => answer.title);
-      console.log(answers);
       const answersTitle = answers.map(answer => answer.title);
       return answersTitle.join();
     }

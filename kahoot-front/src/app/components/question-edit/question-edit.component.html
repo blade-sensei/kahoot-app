@@ -1,10 +1,51 @@
 <div *ngIf="questionToEdit">
-<p>
-  {{ questionToEdit.title }}
-</p>
-<div>
-  <input id="question-title-id" [(ngModel)]="questionToEdit.title" type="text" placeholder="question title ...">
-</div>
-<button (click)="onSaveEdition()">save</button>
+  <div>
+    <div>
+      <input id="question-title-id" [(ngModel)]="questionToEdit.title" type="text" placeholder="question title ...">
+    </div>
+    <div>
+      <ul class="alert alert-danger" *ngIf="answerFormError.length > 0">
+        <li *ngFor="let error of answerFormError">
+          {{ error }}
+        </li>
+      </ul>
+    </div>
+    <label for="">answers: </label> <BR>
+  </div>
 
+  {{ questionToEdit.time }}
+  <div>
+    <label for="time-id"> Select time (seconds)</label>
+    <select name="status" id="time-id" title="" [(ngModel)]="questionToEdit.time"
+            class="form-control">
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+    </select>
+  </div>
+
+
+  <div class="row">
+    <input type="text" [(ngModel)]="questionToEdit.answers[0].title">
+    <input [(ngModel)]="questionToEdit.correctAnswers[0]" type="checkbox" class=""
+           [disabled]="!isSelectionAnswerDisabled(questionToEdit.answers[0])">
+    <BR>
+    <input type="text" [(ngModel)]="questionToEdit.answers[1].title">
+    <input [(ngModel)]="questionToEdit.correctAnswers[1]" type="checkbox" class=""
+           [disabled]="!isSelectionAnswerDisabled(questionToEdit.answers[1])">
+
+    <BR>
+    <input type="text" [(ngModel)]="questionToEdit.answers[2].title">
+    <input [(ngModel)]="questionToEdit.correctAnswers[2]" type="checkbox" class=""
+           [disabled]="!isSelectionAnswerDisabled(questionToEdit.answers[2])">
+    <BR>
+    <input type="text" [(ngModel)]="questionToEdit.answers[3].title">
+    <input [(ngModel)]="questionToEdit.correctAnswers[3]" type="checkbox" class=""
+           [disabled]="!isSelectionAnswerDisabled(questionToEdit.answers[3])">
+    <BR>
+  </div>
+  <div>
+    <button (click)="onSaveEdition()"> Add question</button>
+  </div>
 </div>
