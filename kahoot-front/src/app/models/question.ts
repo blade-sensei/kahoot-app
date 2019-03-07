@@ -4,7 +4,7 @@ import {Answser} from "./answser";
 export class Question {
   title: string;
   answers: Answser[];
-  correctAnswers = [];
+  correctAnswers = [false, false, false , false];
   time: 0;
 
   constructor() {

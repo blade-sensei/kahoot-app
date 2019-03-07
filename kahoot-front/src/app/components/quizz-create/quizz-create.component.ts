@@ -16,7 +16,6 @@ export class QuizzCreateComponent implements OnInit {
     title: '',
     owner: {}
   };
-  correctAnswers = [];
 
   // question section
   question: Question = new Question();
@@ -29,7 +28,6 @@ export class QuizzCreateComponent implements OnInit {
     private quizzService: QuizzService,
     private router: Router
   ) {
-    this.initCorrectAnswers();
   }
 
   ngOnInit() {
@@ -52,14 +50,17 @@ export class QuizzCreateComponent implements OnInit {
 
   public getAnswers(question) {
     if (Reflect.has(question, 'answers')) {
-      const answersTitle = question.answers.map(answer => answer.title);
+      const answers = question.answers.filter(answer => answer.title);
+      console.log(answers);
+      const answersTitle = answers.map(answer => answer.title);
       return answersTitle.join();
     }
     return '';
   }
 
   public getGoodAnswers(question) {
-    return question.correctAnswers.join();
+    const correctAnswers = this.getSelectedAnswers(question);
+    return correctAnswers.join();
   }
 
   onAddQuestion() {
@@ -75,31 +76,24 @@ export class QuizzCreateComponent implements OnInit {
       this.answerFormError.push('insert 2 responses at least');
     }
 
-    if (!this.correctAnswers.some(answer => answer === true)) {
+    if (!this.question.correctAnswers.some(answer => answer === true)) {
       this.answerFormError.push('insert 1 correct answers at least');
     }
 
     if (this.answerFormError.length <= 0) {
-      this.question.answers = this.getInsertedAnswers();
-      this.question.correctAnswers = this.getSelectedAnswers();
       this.quizz.questions.push(this.question);
       this.question = new Question();
-      this.initCorrectAnswers();
     }
   }
 
-  getSelectedAnswers() {
+  getSelectedAnswers(question) {
     const answers = [];
-    this.correctAnswers.forEach((checkedAnswser, index) => {
+    question.correctAnswers.forEach((checkedAnswser, index) => {
       if (checkedAnswser) {
-        answers.push(this.question.answers[index].title);
+        answers.push(question.answers[index].title);
       }
     });
     return answers;
-  }
-
-  initCorrectAnswers() {
-    this.correctAnswers = [false, false, false, false];
   }
 
   isSelectionAnswerDisabled(answer) {
