@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {QuizzService} from "../../services/project/quizz.service";
 import {Subscription} from "rxjs";
 import {HookManagerService} from "../../services/hook-manager.service";
+import {ProfileService} from "../../services/profile/profile.service";
 
 @Component({
   selector: 'app-quizz-edit',
@@ -29,6 +30,7 @@ export class QuizzEditComponent implements OnInit {
     private route: ActivatedRoute,
     private quizzService: QuizzService,
     private hook: HookManagerService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -77,6 +79,25 @@ export class QuizzEditComponent implements OnInit {
         console.log(question);
         this.editingQuizz.questions[this.indexQuestionEdit] = JSON.parse(JSON.stringify(question));
       });
+  }
+
+  deleteQuestion(questionToDelete) {
+    this.editingQuizz.questions = this.editingQuizz.questions
+      .filter(question => !(questionToDelete.title === question.title));
+  }
+
+  onValidateQuizz() {
+    if (!this.editingQuizz.title || !this.editingQuizz.description) {
+      this.quizzFormError.push('Add a title or description');
+      return;
+    }
+    this.quizzService.updateQuizz(this.editingQuizz._id, this.editingQuizz)
+      .subscribe(quizz => {
+        console.log(quizz)
+        const redirectionPath = '/quizz/admin';
+        this.router.navigate([redirectionPath]);
+      });
+
   }
 
 }
