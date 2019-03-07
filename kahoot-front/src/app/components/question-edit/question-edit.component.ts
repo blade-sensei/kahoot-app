@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {HookManagerService} from "../../services/hook-manager.service";
 import {Subscription} from "rxjs";
+import {Question} from "../../models/question";
 
 @Component({
   selector: 'app-question-edit',
@@ -10,11 +11,13 @@ import {Subscription} from "rxjs";
 export class QuestionEditComponent implements OnInit, OnChanges {
 
   question: any;
-  questionToEdit
+  questionToEdit = new Question();
 
   answerFormError = [];
 
   questionSubscription: Subscription;
+  actionCreate: boolean = true;
+
   constructor(
     private hook: HookManagerService,
   ) { }
@@ -24,20 +27,23 @@ export class QuestionEditComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.question.currentValue);
     this.questionToEdit = JSON.parse(JSON.stringify(this.question));
   }
 
   onSaveEdition() {
     this.question = this.questionToEdit;
-    this.hook.setQuestionEdited(this.question);
+    this.hook.setQuestionEdited({question: this.question, create: this.actionCreate});
+    this.question = undefined;
+    this.questionToEdit = new Question();
+    this.actionCreate = true;
   }
 
   subscribeForQuestionToEdit() {
     this.questionSubscription = this.hook
       .getQuestionToEdit()
-      .subscribe(question => {
-        this.questionToEdit = JSON.parse(JSON.stringify(question));
+      .subscribe(resp  => {
+        this.actionCreate = resp.create;
+        this.questionToEdit = JSON.parse(JSON.stringify(resp.question));
       });
   }
 

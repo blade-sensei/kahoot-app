@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {QuizzService} from "../../services/project/quizz.service";
 import {Subscription} from "rxjs";
 import {HookManagerService} from "../../services/hook-manager.service";
-import {ProfileService} from "../../services/profile/profile.service";
 
 @Component({
   selector: 'app-quizz-edit',
@@ -23,7 +22,6 @@ export class QuizzEditComponent implements OnInit {
   questionToEdit: any;
   isQuestionOnEdition = false;
   indexQuestionEdit;
-
   questionSubscription: Subscription;
 
   constructor(
@@ -44,7 +42,6 @@ export class QuizzEditComponent implements OnInit {
   public getAnswers(question) {
     if (Reflect.has(question, 'answers')) {
       const answers = question.answers.filter(answer => answer.title);
-      console.log(answers);
       const answersTitle = answers.map(answer => answer.title);
       return answersTitle.join();
     }
@@ -69,15 +66,21 @@ export class QuizzEditComponent implements OnInit {
   editQuestion(questionToEdit) {
     this.indexQuestionEdit = this.editingQuizz.questions
       .indexOf(questionToEdit);
-    this.hook.setQuestionToEdit(questionToEdit);
+    this.hook.setQuestionToEdit({question: questionToEdit, create: false});
   }
 
   subscribeForQuestionEdited() {
     this.questionSubscription = this.hook
       .getQuestionEdited()
-      .subscribe(question => {
-        console.log(question);
-        this.editingQuizz.questions[this.indexQuestionEdit] = JSON.parse(JSON.stringify(question));
+      .subscribe(resp => {
+        console.log(resp.create);
+        console.log(resp.question);
+        if (resp.create) {
+          this.editingQuizz.questions.push(resp.question);
+        }
+        else {
+          this.editingQuizz.questions[this.indexQuestionEdit] = JSON.parse(JSON.stringify(resp.question));
+        }
       });
   }
 
@@ -93,7 +96,6 @@ export class QuizzEditComponent implements OnInit {
     }
     this.quizzService.updateQuizz(this.editingQuizz._id, this.editingQuizz)
       .subscribe(quizz => {
-        console.log(quizz)
         const redirectionPath = '/quizz/admin';
         this.router.navigate([redirectionPath]);
       });
