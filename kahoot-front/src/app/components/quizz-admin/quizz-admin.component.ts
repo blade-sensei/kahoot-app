@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {QuizzService} from "../../services/project/quizz.service";
 import {ProfileService} from "../../services/profile/profile.service";
 import {Router} from "@angular/router";
+import {BsModalRef, BsModalService} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-quizz-admin',
@@ -11,10 +12,12 @@ import {Router} from "@angular/router";
 export class QuizzAdminComponent implements OnInit {
   userQuizz = [];
   headTable = ['title quizz', 'description', 'actions'];
+  modalRef: BsModalRef;
+  enableMobileGame: false;
   constructor(
     private quizzService: QuizzService,
-    private router: Router
-
+    private router: Router,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit() {
@@ -36,6 +39,10 @@ export class QuizzAdminComponent implements OnInit {
 
   onRedirectToEdit(quizzToEdit) {
     this.router.navigate(['/quizz/edit', quizzToEdit._id]);
+  }
+
+  openModalGameSettings(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
 }

@@ -21,6 +21,7 @@ import { GameScreenAdminComponent } from './components/game-screen-admin/game-sc
 import {QuizzService} from "./services/project/quizz.service";
 import { QuizzEditComponent } from './components/quizz-edit/quizz-edit.component';
 import { QuestionEditComponent } from './components/question-edit/question-edit.component';
+import {ModalModule} from "ngx-bootstrap";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { QuestionEditComponent } from './components/question-edit/question-edit.
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     UserService,

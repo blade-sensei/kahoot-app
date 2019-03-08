@@ -1,21 +1,41 @@
 <table class="table table-dark" *ngIf="userQuizz.length > 0" mdbTable>
   <thead>
   <tr>
-    <th *ngFor="let head of headTable" scope="col">{{head}} </th>
+    <th *ngFor="let head of headTable" scope="col">{{head}}</th>
   </tr>
   </thead>
   <tbody>
-  <tr  *ngFor="let quizz of userQuizz">
+  <tr *ngFor="let quizz of userQuizz">
     <th>{{ quizz.title }}</th>
     <td>{{ quizz.description }}</td>
     <td>
-      <button (click)="onDeleteQuizz(quizz)"> delete </button>
-      <button (click)="onRedirectToEdit(quizz)"> edit </button>
-      <button> download </button>
-      <button class="btn btn-success"> play </button>
+      <button (click)="onDeleteQuizz(quizz)"> delete</button>
+      <button (click)="onRedirectToEdit(quizz)"> edit</button>
+      <button> download</button>
+      <button class="btn btn-success" (click)="openModalGameSettings(template)"> play</button>
     </td>
   </tr>
   </tbody>
 </table>
+
+<ng-template #template>
+  <div class="modal-header">
+    <div class="modal-body">
+      <div>
+        <h4> Settings </h4>
+        <label for="enable-mobile-mode-id"> Enable mobile mode ? : </label>
+        <span>
+          <input id="enable-mobile-mode-id" type="checkbox" [(ngModel)]="enableMobileGame">
+        </span>
+      </div>
+      <div>
+        <button>Next</button>
+        <button (click)="modalRef.hide()">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
 
 <app-button-quizz-add></app-button-quizz-add>
