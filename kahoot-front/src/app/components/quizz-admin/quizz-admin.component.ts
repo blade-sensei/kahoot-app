@@ -13,7 +13,7 @@ export class QuizzAdminComponent implements OnInit {
   userQuizz = [];
   headTable = ['title quizz', 'description', 'actions'];
   modalRef: BsModalRef;
-  enableMobileGame: false;
+  enableMobileGame = false;
   constructor(
     private quizzService: QuizzService,
     private router: Router,
@@ -43,6 +43,12 @@ export class QuizzAdminComponent implements OnInit {
 
   openModalGameSettings(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  createGameRoom() {
+    console.log('room created');
+    this.enableMobileGame = false;
+    this.modalRef.hide();
   }
 
 }
