@@ -61,7 +61,6 @@ router.get(
   async (req, res) => {
     try {
       const quizzs = await quizzService.findAllByUserId(req.params.uid);
-      console.log(quizzs);
       return res.send(quizzs);
     } catch (e) {
       console.log(e);
