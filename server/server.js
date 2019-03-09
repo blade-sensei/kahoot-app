@@ -10,6 +10,10 @@ const cors = require('./middlewares/cors');
 const logger = require('./utils/logger');
 
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+
 app.set('secret_key', config.auth.key);
 
 module.exports = app;
@@ -36,6 +40,11 @@ app.use('/api', api);
 app.use('/seed', seed);
 app.use((req, res) => {
   res.send(404);
+});
+
+//socket io
+io.on('connection', () => {
+  logger.info('user connected');
 });
 
 // config server
