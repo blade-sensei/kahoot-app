@@ -10,8 +10,8 @@ const cors = require('./middlewares/cors');
 const logger = require('./utils/logger');
 
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const http = require('http').createServer(app);
+const io  = require('socket.io').listen(http);
 
 
 app.set('secret_key', config.auth.key);
@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 // enable cross origin
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, OPTIONS, PATCH');
   res.setHeader(
     'Access-Control-Allow-Headers',
@@ -43,20 +43,21 @@ app.use((req, res) => {
 });
 
 //socket io
-io.on('connection', () => {
-  logger.info('user connected');
+io.on('connection', (socket) => {
+  console.log('user connected');
 });
 
 // config server
 const port = process.env.port || config.server.port;
-app.listen(port, () => {
+http.listen(port, () => {
   logger.info(`server api is running on : ${port} port ...`);
+
 });
 
 mongoose
   .connect(`mongodb://${config.db.host}/${config.db.name}`)
   .then(() => {
-    mongoose.set('debug', true);
+    mongoose.set('debug', false);
     // const log = new Logger({ level: 2, message: ''});
     // console.log(log);
     return logger.info(`database connection on ${mongoose.connection.port} port with success!`);
