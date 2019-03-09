@@ -22,6 +22,9 @@ import {QuizzService} from "./services/project/quizz.service";
 import { QuizzEditComponent } from './components/quizz-edit/quizz-edit.component';
 import { QuestionEditComponent } from './components/question-edit/question-edit.component';
 import {ModalModule} from "ngx-bootstrap";
+import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import {ModalModule} from "ngx-bootstrap";
     AppRoutingModule,
     BrowserAnimationsModule,
     ModalModule.forRoot(),
+    SocketIoModule.forRoot(config),
   ],
   providers: [
     UserService,

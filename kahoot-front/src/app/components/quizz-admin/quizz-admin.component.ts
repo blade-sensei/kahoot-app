@@ -3,6 +3,8 @@ import {QuizzService} from "../../services/project/quizz.service";
 import {ProfileService} from "../../services/profile/profile.service";
 import {Router} from "@angular/router";
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import io from 'socket.io-client';
+import {Socket} from "ngx-socket-io";
 
 @Component({
   selector: 'app-quizz-admin',
@@ -17,7 +19,8 @@ export class QuizzAdminComponent implements OnInit {
   constructor(
     private quizzService: QuizzService,
     private router: Router,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private socket: Socket,
   ) { }
 
   ngOnInit() {
@@ -25,6 +28,11 @@ export class QuizzAdminComponent implements OnInit {
     this.quizzService.getUserQuizz(uid).subscribe(quizzs => {
       this.userQuizz = quizzs;
     });
+
+    // const socket = io('http://localhost:3000');
+    // console.log(socket);
+    this.socket.connect();
+
   }
 
   onDeleteQuizz(quizzToDelete) {
