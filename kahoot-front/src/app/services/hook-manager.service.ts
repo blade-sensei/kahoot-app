@@ -5,7 +5,7 @@ import {Observable, Subject} from "rxjs";
   providedIn: 'root'
 })
 export class HookManagerService {
-
+  
   private questionEdited$ = new Subject<any>();
   private questionToEdit$ = new Subject<any>();
 

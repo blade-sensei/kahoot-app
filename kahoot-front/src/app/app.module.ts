@@ -23,6 +23,7 @@ import { QuizzEditComponent } from './components/quizz-edit/quizz-edit.component
 import { QuestionEditComponent } from './components/question-edit/question-edit.component';
 import {ModalModule} from "ngx-bootstrap";
 import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
+import {MapperGameManagerService} from "./services/mapper-game-manager.service";
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 

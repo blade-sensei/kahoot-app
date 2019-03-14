@@ -45,6 +45,7 @@ app.use((req, res) => {
 //socket io
 io.on('connection', (socket) => {
   console.log('user connected');
+  io.emit('connectionSucess', { success: true })
 });
 
 // config server
