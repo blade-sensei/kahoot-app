@@ -1,0 +1,16 @@
+<p> game id {{ gameId }} </p>
+<p *ngIf="isAdmin">
+im admin
+</p>
+
+<div>
+  Waiting for players
+</div>
+
+<div>
+  <input type="text" [(ngModel)]="id">
+</div>
+
+<p *ngFor="let player of game.players">
+  {{ player.name }}
+</p>

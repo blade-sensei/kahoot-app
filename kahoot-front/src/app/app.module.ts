@@ -24,6 +24,10 @@ import { QuestionEditComponent } from './components/question-edit/question-edit.
 import {ModalModule} from "ngx-bootstrap";
 import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
 import {MapperGameManagerService} from "./services/mapper-game-manager.service";
+import {GameManagerService} from "./services/game-manager.service";
+import { GameWatingRoomComponent } from './components/game-wating-room/game-wating-room.component';
+import { GamePlayerJoinComponent } from './components/game-player-join/game-player-join.component';
+import { GameQuizzBoardComponent } from './components/game-quizz-board/game-quizz-board.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -40,6 +44,9 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     GameScreenAdminComponent,
     QuizzEditComponent,
     QuestionEditComponent,
+    GameWatingRoomComponent,
+    GamePlayerJoinComponent,
+    GameQuizzBoardComponent,
   ],
   imports: [
     HttpClientModule,
@@ -58,6 +65,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AuthenticationService,
     ProfileService,
     QuizzService,
+    GameManagerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

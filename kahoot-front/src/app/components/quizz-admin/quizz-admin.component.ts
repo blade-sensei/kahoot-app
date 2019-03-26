@@ -21,7 +21,6 @@ export class QuizzAdminComponent implements OnInit {
   gameId = 0;
   //hooks
   connectionSubscription: Subscription;
-  gameManagerService: GameManagerService;
 
   mapGames: Subscription;
   games = [];
@@ -32,8 +31,8 @@ export class QuizzAdminComponent implements OnInit {
     private modalService: BsModalService,
     private socket: Socket,
     private mapperGM: MapperGameManagerService,
+    private gameManagerService: GameManagerService,
   ) {
-    this.gameManagerService =  new GameManagerService(this.socket, 'ok');
   }
 
   ngOnInit() {
@@ -41,6 +40,7 @@ export class QuizzAdminComponent implements OnInit {
     this.quizzService.getUserQuizz(uid).subscribe(quizzs => {
       this.userQuizz = quizzs;
     });
+    this.setHooks();
     this.gameSub();
     // const socket = io('http://localhost:3000');
     // console.log(socket);
@@ -68,10 +68,7 @@ export class QuizzAdminComponent implements OnInit {
   createGameRoom() {
     console.log('room created');
     //call api and get room numer
-    const roomNumber = this.getRandomInt(20);
-    this.mapperGM.setMapPingGameManager([roomNumber.toString(), 'game3']);
     this.gameManagerService.connect();
-
     //reset component
     this.enableMobileGame = false;
     this.modalRef.hide();
@@ -80,7 +77,10 @@ export class QuizzAdminComponent implements OnInit {
   setHooks() {
     this.connectionSubscription = this.gameManagerService
       .getConnectionHook().subscribe(resp => {
+        console.log('connection admin', resp);
         this.gameId = resp.gameId;
+        console.log(this.gameId);
+        this.router.navigate(['/quizz/room', {isAdmin: true, gameId: this.gameId }]);
         // creation d'un room socket io
       })
   }

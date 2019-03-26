@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MapperGameManagerService} from "../../services/mapper-game-manager.service";
 import {Subscription} from "rxjs";
+import {GameManagerService} from "../../services/game-manager.service";
 
 @Component({
   selector: 'app-home',
@@ -8,22 +9,19 @@ import {Subscription} from "rxjs";
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  public game = [];
+  data = {
+    pin: 0
+  };
   mapGames: Subscription;
   constructor(
     private mapp: MapperGameManagerService,
+    private gameService: GameManagerService,
   ) {}
 
   ngOnInit() {
-    this.gameSub();
   }
 
-  gameSub() {
-    this.mapGames = this.mapp.onMapPinGameManager()
-      .subscribe(games => {
-        console.log('test');
-        console.log(games);
-        this.game = games;
-      });
+  connectToGame() {
+    this.gameService.connectPlayer(this.data);
   }
 }
