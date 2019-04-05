@@ -89,6 +89,17 @@ io.on('connection', (socket) => {
       io.emit('playerConnectionResponse', { succes: false });
     }
   });
+
+  socket.on('onGetGameState', game => {
+    console.log('receive', game);
+    const [,gamePlayer] = gameManagerMapper.find(Number(game.id));
+    console.log('game', gamePlayer);
+    io.emit('gameState', gamePlayer);
+
+    //impl
+  })
+
+  //gameState
 });
 
 

@@ -9,14 +9,7 @@ import {GameManagerService} from "../../services/game-manager.service";
   styleUrls: ['./game-wating-room.component.css']
 })
 export class GameWatingRoomComponent implements OnInit {
-  gameId;
-  isAdmin;
-  id = 0;
-  game = {
-    id: 0,
-    players: []
-  };
-
+  game;
   gameChange: Subscription;
   constructor(
     private route: ActivatedRoute,
@@ -24,21 +17,26 @@ export class GameWatingRoomComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setGameChange();
-    this.gameId = this.route.snapshot.paramMap.get('gameId');
-    console.log(this.gameId);
-    this.isAdmin = this.route.snapshot.paramMap.get('isAdmin');
-    const game  = this.route.snapshot.paramMap.get('game');
-    console.log('param', game);
+    this.onGetGameState();
+    this.game = {
+      id: this.route.snapshot.paramMap.get('gameId'),
+      isAdmin: Boolean(this.route.snapshot.paramMap.get('isAdmin')),
+      playerName:  this.route.snapshot.paramMap.get('playerName'),
+    };
+    console.log('game settings', this.game.isAdmin);
+    this.emitGetGameState(this.game);
   }
 
-  setGameChange() {
-    this.gameChange = this.gameManager.getGameChange().subscribe(game => {
-      console.log('changed game', game.game);
-      this.game = game.game;
-      this.id = game.game.id;
+  onGetGameState() {
+    this.gameChange = this.gameManager.getGameState().subscribe(game => {
+      console.log(game);
+      this.game = game;
       console.log('game here', this.game);
     })
+  }
+
+  emitGetGameState(game) {
+    this.gameManager.onEmitGetGameState(game)
   }
 
 }

@@ -34,7 +34,7 @@ export class GamePlayerJoinComponent implements OnInit {
   connection() {
     this.playerConnection = this.gameService.getGameChange().subscribe(response => {
       console.log('game after change', response);
-      this.router.navigate(['/quizz/room', {isAdmin: false, gameId: response.gameId, game: response.game}]);
+      this.router.navigate(['/quizz/room', {isAdmin: false, gameId: response.gameId, playerName: this.data.playerName}]);
     });
   }
 

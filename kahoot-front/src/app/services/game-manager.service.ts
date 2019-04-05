@@ -10,6 +10,7 @@ export class GameManagerService {
   private connectionSuccess$ = new Subject<any>();
   private playerConnectionSuccess$ = new Subject<any>();
   private gameChange$ = new Subject<any>();
+  private gameState$ = new Subject<any>();
 
   constructor(
     private socket: Socket,
@@ -36,6 +37,11 @@ export class GameManagerService {
       this.gameChange$.next(game);
     });
 
+    this.socket.on('gameState', (game) => {
+      console.log('receive gamestate', game);
+      this.gameState$.next(game);
+    })
+
   }
 
   getConnectionHook(): Observable<any> {
@@ -48,6 +54,14 @@ export class GameManagerService {
 
   getGameChange(): Observable<any> {
     return this.gameChange$.asObservable();
+  }
+
+  getGameState(): Observable<any> {
+    return this.gameState$.asObservable();
+  }
+
+  onEmitGetGameState(game) {
+    this.socket.emit('onGetGameState', game)
   }
 
   connect() {
