@@ -10,6 +10,7 @@ import {GameManagerService} from "../../services/game-manager.service";
 })
 export class GameWatingRoomComponent implements OnInit {
   game;
+  isAdmin;
   gameChange: Subscription;
   constructor(
     private route: ActivatedRoute,
@@ -20,10 +21,10 @@ export class GameWatingRoomComponent implements OnInit {
     this.onGetGameState();
     this.game = {
       id: this.route.snapshot.paramMap.get('gameId'),
-      isAdmin: Boolean(this.route.snapshot.paramMap.get('isAdmin')),
       playerName:  this.route.snapshot.paramMap.get('playerName'),
     };
-    console.log('game settings', this.game.isAdmin);
+    this.isAdmin = this.route.snapshot.paramMap.get('isAdmin') !== 'false';
+    console.log(this.isAdmin);
     this.emitGetGameState(this.game);
   }
 
@@ -37,6 +38,10 @@ export class GameWatingRoomComponent implements OnInit {
 
   emitGetGameState(game) {
     this.gameManager.onEmitGetGameState(game)
+  }
+
+  isUserAdmin() {
+    return this.isAdmin
   }
 
 }

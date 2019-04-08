@@ -1,7 +1,7 @@
 <p> game id {{ game.id }} </p>
-<p *ngIf="game.isAdmin">
-im admin
-</p>
+<div *ngIf="isUserAdmin()">
+  I'm admin of this room
+</div>
 
 <div *ngIf="game.isAdmin">
   Waiting for players
@@ -11,7 +11,8 @@ im admin
   <input type="text" [(ngModel)]="game.id">
 </div>
 
-<p *ngFor="let player of game.players">
-  {{ player.name }}
-</p>
+Players:
+<div *ngFor="let player of game.players">
+  <li>{{ player.name }}</li>
+</div>
 
