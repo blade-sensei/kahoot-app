@@ -15,7 +15,6 @@ export class GamePlayerJoinComponent implements OnInit {
     pin: 0,
     playerName: ''
   };
-  mapGames: Subscription;
   playerConnection: Subscription;
   constructor(
     private mapp: MapperGameManagerService,
@@ -32,7 +31,7 @@ export class GamePlayerJoinComponent implements OnInit {
   }
 
   connection() {
-    this.playerConnection = this.gameService.getGameChange().subscribe(response => {
+    this.playerConnection = this.gameService.getGameState().subscribe(response => {
       console.log('game after change', response);
       this.router.navigate(['/quizz/room', {isAdmin: false, gameId: response.gameId, playerName: this.data.playerName}]);
     });

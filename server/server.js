@@ -52,7 +52,7 @@ function getRandomInt(max) {
 
 io.on('connection', (socket) => {
   console.log('connection socket');
-  socket.on('admin', (data) => {
+  socket.on('create_room_admin', (data) => {
     console.log('user connected');
     const pinGame = getRandomInt(30);
     const gameManager = new GameManager();
@@ -60,17 +60,15 @@ io.on('connection', (socket) => {
     const game = [pinGame, gameManager];
     gameManagerMapper.setMap(game);
     console.log(gameManagerMapper.getMap());
-    io.emit('connectionSucess', { success: true, gameId: pinGame });
+    io.emit('create_room_response', { success: true, gameId: pinGame });
   });
 
-  socket.on('playerConnection', (data) => {
-    console.log(data);
+  socket.on('join_room_player', (data) => {
     const player = {
       name: data.playerName,
     };
-    console.log('user player connected');
+    console.log('user player connected', player);
     const game = gameManagerMapper.find(Number(data.pin));
-    console.log(game);
     if (game) {
       const gameManager = game[1];
       console.log('manager', gameManager);
@@ -78,25 +76,21 @@ io.on('connection', (socket) => {
       const players = gameManager.getPlayers();
       const id = gameManager.getId();
       console.log('players', players);
-      io.emit(
-        'setGameChange',
-        {
-          success: true,
-          gameId: id,
-          game: { players: players, id: id }
-        });
+      const gameToEmit = {
+        success: true,
+        gameId: id,
+        game: { players: players, id: id }
+      };
+      io.emit('game_state_get_response', gameToEmit);
     } else {
-      io.emit('playerConnectionResponse', { succes: false });
+      io.emit('join_response_player', { succes: false });
     }
   });
 
-  socket.on('onGetGameState', game => {
-    console.log('receive', game);
-    const [,gamePlayer] = gameManagerMapper.find(Number(game.id));
-    console.log('game', gamePlayer);
-    io.emit('gameState', gamePlayer);
-
-    //impl
+  socket.on('game_state_get', gameId => {
+    const [,game] = gameManagerMapper.find(Number(gameId));
+    console.log('game_state_get', game);
+    io.emit('game_state_get_response', game);
   })
 
   //gameState

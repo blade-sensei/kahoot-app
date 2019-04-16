@@ -66,9 +66,8 @@ export class QuizzAdminComponent implements OnInit {
   }
 
   createGameRoom() {
-    console.log('room created');
     //call api and get room numer
-    this.gameManagerService.connect();
+    this.gameManagerService.createRoomAdmin();
     //reset component
     this.enableMobileGame = false;
     this.modalRef.hide();
@@ -77,7 +76,6 @@ export class QuizzAdminComponent implements OnInit {
   setHooks() {
     this.connectionSubscription = this.gameManagerService
       .getConnectionHook().subscribe(resp => {
-        console.log('connection admin', resp);
         this.gameId = resp.gameId;
         console.log(this.gameId);
         this.router.navigate(['/quizz/room', {isAdmin: true, gameId: this.gameId }]);

@@ -15,29 +15,23 @@ export class GameManagerService {
   constructor(
     private socket: Socket,
   ) {
-    this.setConnectionHook()
+    this.listenSocketIOServerEvents()
   }
 
-  getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
-
-  setConnectionHook() {
-    this.socket.on('connectionSucess', (res) => {
+  listenSocketIOServerEvents() {
+    this.socket.on('create_room_response', (res) => {
       this.connectionSuccess$.next(res);
     });
 
-    this.socket.on('playerConnectionResponse', (res) => {
-      console.log(res);
+    this.socket.on('join_response_player', (res) => {
       this.playerConnectionSuccess$.next(res);
     });
 
-    this.socket.on('setGameChange', (game) => {
+    this.socket.on('game_change', (game) => {
       this.gameChange$.next(game);
     });
 
-    this.socket.on('gameState', (game) => {
+    this.socket.on('game_state_get_response', (game) => {
       console.log('receive gamestate', game);
       this.gameState$.next(game);
     })
@@ -46,10 +40,6 @@ export class GameManagerService {
 
   getConnectionHook(): Observable<any> {
     return this.connectionSuccess$.asObservable();
-  }
-
-  getPlayerConnection(): Observable<any> {
-    return this.playerConnectionSuccess$.asObservable();
   }
 
   getGameChange(): Observable<any> {
@@ -61,25 +51,15 @@ export class GameManagerService {
   }
 
   onEmitGetGameState(game) {
-    this.socket.emit('onGetGameState', game)
+    this.socket.emit('game_state_get', game)
   }
 
-  connect() {
-    this.socket.emit('admin', {});
+  createRoomAdmin() {
+    this.socket.emit('create_room_admin', {});
   }
 
   connectPlayer(pin) {
-    this.socket.emit('playerConnection', pin);
-  }
-
-  onGameChange() {
-    this.socket.on('onGameChange', (game) => {
-      console.log(game)
-    });
-  }
-
-  setGameChange(game) {
-    this.socket.emit('setGameChange', game);
+    this.socket.emit('join_room_player', pin);
   }
 
 }

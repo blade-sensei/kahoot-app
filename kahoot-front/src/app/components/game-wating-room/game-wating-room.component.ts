@@ -30,7 +30,6 @@ export class GameWatingRoomComponent implements OnInit {
 
   onGetGameState() {
     this.gameChange = this.gameManager.getGameState().subscribe(game => {
-      console.log(game);
       this.game = game;
       console.log('game here', this.game);
     })
