@@ -1,4 +1,4 @@
-class GameManagerMapper {
+class GameManager {
 
   constructor() {
     this.players = [];
@@ -28,4 +28,4 @@ class GameManagerMapper {
   }
 }
 
-module.exports = GameManagerMapper;
+module.exports = GameManager;

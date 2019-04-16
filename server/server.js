@@ -59,16 +59,19 @@ io.on('connection', (socket) => {
     gameManager.setId(pinGame);
     const game = [pinGame, gameManager];
     gameManagerMapper.setMap(game);
-    console.log(gameManagerMapper.getMap());
+    console.log('created map', gameManagerMapper.getMap());
     io.emit('create_room_response', { success: true, gameId: pinGame });
   });
-
+  //qu'on une connection est réussi par l'admin il faut créer une room,
+  //et on va emit et écouter que sur cette room.
+  // donc les event dans angular manager vont se faire
   socket.on('join_room_player', (data) => {
     const player = {
       name: data.playerName,
     };
     console.log('user player connected', player);
     const game = gameManagerMapper.find(Number(data.pin));
+    let gameToEmit = {};
     if (game) {
       const gameManager = game[1];
       console.log('manager', gameManager);
@@ -76,18 +79,19 @@ io.on('connection', (socket) => {
       const players = gameManager.getPlayers();
       const id = gameManager.getId();
       console.log('players', players);
-      const gameToEmit = {
+      gameToEmit = {
         success: true,
         gameId: id,
         game: { players: players, id: id }
       };
-      io.emit('game_state_get_response', gameToEmit);
     } else {
-      io.emit('join_response_player', { succes: false });
+      gameToEmit.success = false;
     }
+    io.emit('join_response_player', gameToEmit);
   });
 
   socket.on('game_state_get', gameId => {
+    console.log(gameId);
     const [,game] = gameManagerMapper.find(Number(gameId));
     console.log('game_state_get', game);
     io.emit('game_state_get_response', game);

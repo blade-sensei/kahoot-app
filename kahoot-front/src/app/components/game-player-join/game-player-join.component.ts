@@ -23,17 +23,22 @@ export class GamePlayerJoinComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.connection();
   }
 
   connectToGame() {
+    this.connection();
     this.gameService.connectPlayer(this.data);
   }
 
   connection() {
-    this.playerConnection = this.gameService.getGameState().subscribe(response => {
-      console.log('game after change', response);
-      this.router.navigate(['/quizz/room', {isAdmin: false, gameId: response.gameId, playerName: this.data.playerName}]);
+    this.playerConnection = this.gameService.getConnectionPlayerResponse()
+      .subscribe(response => {
+        console.log('player connection response', response);
+        if (response.success) {
+          this.router.navigate(['/quizz/room', {isAdmin: false, gameId: response.gameId, playerName: this.data.playerName}]);
+        } else {
+          console.log('connection player failed');
+        }
     });
   }
 

@@ -42,7 +42,11 @@ export class GameManagerService {
     return this.connectionSuccess$.asObservable();
   }
 
-  getGameChange(): Observable<any> {
+  getConnectionPlayerResponse(): Observable<any> {
+    return this.playerConnectionSuccess$.asObservable();
+  }
+
+  get(): Observable<any> {
     return this.gameChange$.asObservable();
   }
 
@@ -51,7 +55,8 @@ export class GameManagerService {
   }
 
   onEmitGetGameState(game) {
-    this.socket.emit('game_state_get', game)
+    console.log(game);
+    this.socket.emit('game_state_get', game.id)
   }
 
   createRoomAdmin() {
