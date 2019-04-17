@@ -55,11 +55,13 @@ io.on('connection', (socket) => {
   socket.on('create_room_admin', (data) => {
     console.log('user connected');
     const pinGame = getRandomInt(30);
+    const pinGameString = pinGame.toString();
     const gameManager = new GameManager();
     gameManager.setId(pinGame);
     const game = [pinGame, gameManager];
     gameManagerMapper.setMap(game);
     console.log('created map', gameManagerMapper.getMap());
+    socket.join(pinGameString);
     io.emit('create_room_response', { success: true, gameId: pinGame });
   });
   //qu'on une connection est réussi par l'admin il faut créer une room,
@@ -84,6 +86,7 @@ io.on('connection', (socket) => {
         gameId: id,
         game: { players: players, id: id }
       };
+      socket.join(data.pin);
     } else {
       gameToEmit.success = false;
     }
@@ -91,10 +94,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on('game_state_get', gameId => {
-    console.log(gameId);
+    console.log('room', gameId);
+    console.log('room tpyoe', typeof gameId);
     const [,game] = gameManagerMapper.find(Number(gameId));
     console.log('game_state_get', game);
-    io.emit('game_state_get_response', game);
+    io.to(gameId).emit('game_state_get_response', game);
   })
 
   //gameState

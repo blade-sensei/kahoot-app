@@ -24,6 +24,7 @@ export class QuizzAdminComponent implements OnInit {
 
   mapGames: Subscription;
   games = [];
+  connected = false;
 
   constructor(
     private quizzService: QuizzService,
@@ -78,7 +79,9 @@ export class QuizzAdminComponent implements OnInit {
       .getConnectionHook().subscribe(resp => {
         this.gameId = resp.gameId;
         console.log(this.gameId);
-        this.router.navigate(['/quizz/room', {isAdmin: true, gameId: this.gameId }]);
+        if (!this.connected) {
+          this.router.navigate(['/quizz/room', {isAdmin: true, gameId: this.gameId }]);
+        }
         // creation d'un room socket io
       })
   }

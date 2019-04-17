@@ -16,3 +16,5 @@ Players:
   <li>{{ player.name }}</li>
 </div>
 
+<button *ngIf="isUserAdmin()" [disabled]="!isEnoughPlayer()" (click)="startGame()"> Start Game </button>
+
